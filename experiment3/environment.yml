@@ -1,0 +1,12 @@
+name: compute-map
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.10
+  - tqdm
+  - numpy
+  - pytorch::pytorch
+  - metric-learning::pytorch-metric-learning
+  - pyyaml 
