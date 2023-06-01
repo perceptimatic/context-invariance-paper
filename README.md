@@ -1,17 +1,37 @@
 # context-invariance-paper
 Codebase for https://arxiv.org/pdf/2210.15775.pdf, forthcoming in Interspeech.
 
+# Install
+1) Clone this repository.
+2) 
+```
+cd context-invariance-paper
+conda env create -f environment.yml
+conda activate abx-exp23
+```
+
+This installs what you need to run experiments 2-3. As outlined below, **Experiment 1** is run separately.
+
 # Experiment 1
-To run experiment 1 for a given model, go to the [Zero Resource Challenge Benchmark Toolkit](https://github.com/zerospeech/benchmarks) and follow the instructions for running the abx-LS benchmark. Alternatively, if you want more granular control, you can go directly to https://github.com/zerospeech/libri-light-abx2/. See also 
+To run experiment 1 for a given model, go to the [Zero Resource Challenge Benchmark Toolkit](https://github.com/zerospeech/benchmarks) and follow the instructions for running the abx-LS benchmark. Alternatively, if you want more granular control, you can go directly to https://github.com/zerospeech/libri-light-abx2/.
 
 # Experiment 2
-For a given model, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and compare with the default abx score (i.e. `--pooling none`). The code to generate 1-hot encoded submission from a transcription is demonstrated in the current repository, as is the generation of submissions from the 1-hot encoded submission where the phoneme boundaries are occasionally shifted.
+1) GENERATING ABX SUBMISSIONS FROM THE TRANSCRIPTION. This repository includes the code to generate a 1-hot-encoded abx submission from the transcription. You can also generate several 1-hot encoded submissions from the transcription such that some errors are deliberately added in, specifically with the phoneme boundaries occasionally shifted. To generate these submissions, do the following:
+
+```
+conda activate abx-exp23
+python experiment2/gen_transcription_submission.py [output_path]
+python experiment2/gen_error_submissions.py [output_path]
+```
+
+2) RUNNING THE COMPARISON. Once you have the 1-hot-encoded submissions, or if you want to test another submission, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and then compare with the default abx score (i.e. `--pooling none`). 
 
 # Experiment 3
-The code for running experiment 3 is included in the current repository. To enable the suitable environment, do: 
+1) GENERATING SUBMISSIONS WITH A BLURRING FILTER APPLIED. To generate a modified submission from a given submission, do
+```
+conda activate abx-exp23
+python experiment3/convolution_submission_gen.py -h
+```
+and follow the instructions. To re-create the results for a given model, you will want to run --convolution_type running_mean and --window_s_running_mean 3 (and {5,7}).
 
-```
-cd experiment3
-conda env create -f environment.yml
-conda activate compute-map
-```
+2) RUNNING THE COMPARISON. Once you have the submissions from above, run https://github.com/zerospeech/libri-light-abx2/ for the across-speaker condition. 
