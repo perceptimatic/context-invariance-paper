@@ -1,4 +1,4 @@
-name: compute-map
+name: abx-exp23
 channels:
   - pytorch
   - nvidia
