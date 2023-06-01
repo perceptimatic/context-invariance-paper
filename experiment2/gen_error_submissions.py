@@ -1,5 +1,4 @@
 import argparse, sys, os
-from enum import Enum
 import numpy as np
 import gen_transcription_submission as gen
 
@@ -51,14 +50,6 @@ class ErrorSubmissionGenerator(gen.TranscriptionSubmissionGenerator):
     
 def add_parser_args(parser: argparse.ArgumentParser):
     parser.add_argument(
-        "--transcriptions_top_path", 
-        type=str, 
-        default='/scratch1/projects/zerospeech/2021/datasets/librispeech-preprocessed/',
-        help=("Path to the main transcriptions directory that contains subdirs" 
-        "such as test-clean etc.")
-    )
-
-    parser.add_argument(
         "output_path", 
         type=str, 
         help="Path where the submission(s) will be written."
@@ -72,19 +63,25 @@ def main(argv):
     parser = argparse.ArgumentParser(description=description)
     add_parser_args(parser)
     cmdlineargs = parser.parse_args(argv)
+    transcriptions_top_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'transcriptions'))
 
     for i in (-10, -8, -6):
         if i == 0:
             continue
         sg = ErrorSubmissionGenerator(i)
         output_path = f'{cmdlineargs.output_path}-randomshift{i}'
-        args = gen.GeneratorArgs(cmdlineargs.transcriptions_top_path,
+        args = gen.GeneratorArgs(transcriptions_top_path,
                                  output_path,
                                  gen.TRANSCRIPTION_SUBMISSION_MAP,
                                  gen.TRANSCRIPTION_TEXTDIRNAME,
                                  gen.TRANSCRIPTION_FILENAME,
                                  gen.FILE_LIST_ALIGNMENT_FILENAME)
         sg.generate_submission(args)
+        print(f"""
+              Generating 1-hot encoded transcription submission with some shifted boundaries. 
+              Params:\n{args}\n, i={i}\n
+              """)
+    print("\nDONE. Submissions with boundary shifts generated.")
 
 if __name__ == "__main__":
     args = sys.argv[1:]

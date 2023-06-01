@@ -117,14 +117,6 @@ class TranscriptionSubmissionGenerator:
         
 def add_parser_args(parser: argparse.ArgumentParser):
     parser.add_argument(
-        "--transcriptions_top_path", 
-        type=str, 
-        default='/scratch1/projects/zerospeech/2021/datasets/librispeech-preprocessed/',
-        help=("Path to the main transcriptions directory that contains subdirs" 
-        "such as test-clean etc.")
-    )
-
-    parser.add_argument(
         "output_path", 
         type=str, 
         help="Path where the submission will be written."
@@ -136,15 +128,17 @@ def main(argv):
     parser = argparse.ArgumentParser(description=description)
     add_parser_args(parser)
     cmdlineargs = parser.parse_args(argv)
-    
+    transcriptions_top_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'transcriptions'))
     sg = TranscriptionSubmissionGenerator()
-    args = GeneratorArgs(cmdlineargs.transcriptions_top_path,
+    args = GeneratorArgs(transcriptions_top_path,
                         cmdlineargs.output_path, 
                         TRANSCRIPTION_SUBMISSION_MAP,
                         TRANSCRIPTION_TEXTDIRNAME, 
                         TRANSCRIPTION_FILENAME,
                         FILE_LIST_ALIGNMENT_FILENAME)
+    print(f"Generating 1-hot encoded transcription submission with params:\n{args}")
     sg.generate_submission(args)
+    print("\nDONE. Transcription submission generated.")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
