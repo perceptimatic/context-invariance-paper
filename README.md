@@ -30,8 +30,11 @@ python experiment2/gen_error_submissions.py [output_path]
 1) GENERATING SUBMISSIONS WITH A BLURRING FILTER APPLIED. To generate a modified submission from a given submission, do
 ```
 conda activate abx-exp23
-python experiment3/convolution_submission_gen.py -h
+python experiment3/convolution_submission_gen/convolution_submission_gen.py -h
 ```
-and follow the instructions. To re-create the results for a given model, you will want to run --convolution_type running_mean and --window_s_running_mean 3 (and {5,7}).
+and follow the instructions. You will want to run --convolution_type running_mean and --window_s_running_mean 3 (and {5,7}).
 
-2) RUNNING THE COMPARISON. Once you have the submissions from above, run https://github.com/zerospeech/libri-light-abx2/ for the across-speaker condition. 
+2) RUNNING THE EVALUATION ON THE SUBMISSIONS. Once you have the submissions from above, run
+```
+python experiment3/mapcode/compute_map_from_dir.py
+```
