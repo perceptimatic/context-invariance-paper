@@ -24,7 +24,15 @@ python experiment2/gen_transcription_submission.py [output_path]
 python experiment2/gen_error_submissions.py [output_path]
 ```
 
-2) RUNNING THE COMPARISON. Once you have the 1-hot-encoded submissions, or if you want to test another submission, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and then compare with the default abx score (i.e. `--pooling none`). For these submissions, set --feature_size 0.01 when running the abx benchmark.
+2) RUNNING THE COMPARISON. Once you have the 1-hot-encoded submissions, or if you want to test another submission, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and then compare with the default abx score (i.e. `--pooling none`). For these submissions, use one of the clean subsets and set the following options:
+
+```
+--feature_size 0.01
+--speaker_mode within
+--context_mode all
+```
+
+This will compute the score for both the within-context and without-context conditions.
 
 # Experiment 3
 1) GENERATING SUBMISSIONS WITH A BLURRING FILTER APPLIED. To generate a modified submission from a given submission, do
@@ -32,7 +40,7 @@ python experiment2/gen_error_submissions.py [output_path]
 conda activate abx-exp23
 python experiment3/convolution_submission_gen/convolution_submission_gen.py -h
 ```
-and follow the instructions. You will want to run --convolution_type running_mean and --window_s_running_mean 3 (and {5,7}).
+and follow the instructions. You will want to run with `--convolution_type running_mean` and `--window_s_running_mean 3` (and {5,7}).
 
 2) RUNNING THE EVALUATION ON THE SUBMISSIONS. Once you have the submissions from above, run
 ```
