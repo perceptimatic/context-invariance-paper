@@ -24,7 +24,7 @@ python experiment2/gen_transcription_submission.py [output_path]
 python experiment2/gen_error_submissions.py [output_path]
 ```
 
-2) RUNNING THE COMPARISON. Once you have the 1-hot-encoded submissions, or if you want to test another submission, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and then compare with the default abx score (i.e. `--pooling none`). 
+2) RUNNING THE COMPARISON. Once you have the 1-hot-encoded submissions, or if you want to test another submission, run https://github.com/zerospeech/libri-light-abx2/ with the option `--pooling hamming` and then compare with the default abx score (i.e. `--pooling none`). For these submissions, set --feature_size 0.01 when running the abx benchmark.
 
 # Experiment 3
 1) GENERATING SUBMISSIONS WITH A BLURRING FILTER APPLIED. To generate a modified submission from a given submission, do
