@@ -8,5 +8,8 @@ dependencies:
   - tqdm
   - numpy
   - pytorch::pytorch
+  - faiss-gpu=1.7.4
+  - mkl=2021
+  - blas=1.0=mkl
   - metric-learning::pytorch-metric-learning
   - pyyaml 
