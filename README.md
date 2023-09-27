@@ -1,5 +1,5 @@
 # context-invariance-paper
-Codebase for https://arxiv.org/pdf/2210.15775.pdf, forthcoming in Interspeech.
+Codebase for [Evaluating context-invariance in unsupervised speech representations](https://doi.org/10.21437/Interspeech.2023-1862), published in Interspeech.
 
 # Install
 1) Clone this repository.
