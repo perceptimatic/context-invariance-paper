@@ -42,7 +42,14 @@ python experiment3/convolution_submission_gen/convolution_submission_gen.py -h
 ```
 and follow the instructions. You will want to run with `--convolution_type running_mean` and `--window_s_running_mean 3` (and {5,7}).
 
-2) RUNNING THE EVALUATION ON THE SUBMISSIONS. Once you have the submissions from above, run
+2) EXTRACTING WORD-LEVEL FEATURES FOR EVALUATION. If you already have WORD-LEVEL representations saved, skip to step (3). Otherwise, run
 ```
-python experiment3/mapcode/compute_map_from_dir.py
+map_feature_extractor.py [submission_path] [output_path] [item_file_path]
+```
+An item file used for the results in the paper is provided with this repository (`words_split_nohapax_dev-clean`).
+The submission must be in Zerospeech2021 format, see [Zerospeech Benchmarks](https://github.com/zerospeech/benchmarks).
+
+3) RUNNING THE EVALUATION ON THE SUBMISSIONS. Once you have the submissions from above, run
+```
+python experiment3/mapcode/compute_map_from_dir.py [words feature dir] [output path]
 ```
